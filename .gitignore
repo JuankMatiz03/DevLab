@@ -1,0 +1,14 @@
+# dotnet
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# node
+**/node_modules/
+**/dist/
+**/.angular/
+
+# misc
+.DS_Store
+.env

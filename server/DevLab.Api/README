@@ -1,0 +1,11 @@
+Clean Architecture lite: separación Application (use-cases) / Data (infra ADO.NET) / Controllers (web).
+
+CQRS: comandos/consultas separados → control de dependencias y pruebas más simples.
+
+MediatR: single entry point para reglas transversales (validación, logging, métricas).
+
+FluentValidation + Pipeline: validaciones declarativas y consistentes.
+
+Health Checks: /health con verificación de SQL Server (readiness).
+
+Serilog: logs estructurados para auditoría y diagnóstico.

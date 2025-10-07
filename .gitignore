@@ -1,14 +1,25 @@
+cat > .gitignore <<'EOF'
+# node en el monorepo
+**/node_modules/
+# angular cache en la raiz
+/.angular
+/.angular/cache
+
 # dotnet
 **/bin/
 **/obj/
 *.user
 *.suo
 
-# node
-**/node_modules/
-**/dist/
-**/.angular/
+# build outputs
+/dist
+/out-tsc
 
-# misc
+# IDE y misc
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 .DS_Store
-.env
+Thumbs.db
+EOF

@@ -1,0 +1,59 @@
+/* Barra */
+.topbar {
+  background: #0f172a;         
+  color: #e5e7eb;              
+  height: 64px;
+  padding: 0 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-text {
+  font-weight: 600;
+  letter-spacing: .2px;
+  font-size: 18px;
+}
+
+.topbar .mat-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.spacer { flex: 1 1 auto; }
+
+.nav a[mat-button] {
+  color: #e5e7eb;
+  text-transform: none;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-left: 4px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav a[mat-button]:hover {
+  background: rgba(255,255,255,.08);
+}
+
+.nav a.active {
+  background: rgba(255,255,255,.14);
+}
+
+.content {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .brand-text { display: none; }
+}

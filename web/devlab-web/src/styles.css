@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.snack-ok .mdc-snackbar__surface { 
+  background: #0f766e; 
+  color: #fff; 
+}  
+.snack-warn.mdc-snackbar .mdc-snackbar__surface,
+.snack-warn .mdc-snackbar__surface { 
+  background: #b45309; 
+  color: #fff; 
+} 
+.snack-err .mdc-snackbar__surface { 
+  background: #b91c1c; 
+  color: #fff; 
+} 
+
+.snack-ok .mdc-button__label,
+.snack-warn .mdc-button__label,
+.snack-err .mdc-button__label {
+  color: #fff; 
+}
+
+.custom-table .mat-mdc-table .mdc-data-table__header-row {
+  background: #0e1b2b;       
+}
+
+.custom-table .mat-mdc-table .mdc-data-table__header-cell {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.custom-table {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;  
+  background: #fff;
+}
+
+.custom-table .mat-mdc-header-cell,
+.custom-table .mat-mdc-cell {
+  padding: 12px 16px;
+}
+
+.custom-table .mat-mdc-row:hover .mat-mdc-cell {
+  background: #f6f8fc;
+}
+
+.custom-table .mat-mdc-paginator {
+  border-top: 1px solid #e5e7eb;
+}

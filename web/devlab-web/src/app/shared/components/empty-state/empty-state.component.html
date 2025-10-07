@@ -1,0 +1,26 @@
+<mat-card-content
+  class="empty"
+  [ngClass]="[layout, dashed ? 'dashed' : '', dense ? 'dense' : '']"
+  >
+
+  <div class="empty__icon" [ngClass]="color">
+    <mat-icon aria-hidden="true">{{ icon }}</mat-icon>
+  </div>
+
+  <div class="empty__text">
+    <div class="empty__title">{{ title }}</div>
+    <div class="empty__sub">{{ subtitle }}</div>
+  </div>
+
+  <span class="empty__spacer"></span>
+
+  <button
+    *ngIf="actionLabel"
+    mat-stroked-button
+    [color]="color"
+    (click)="action.emit()"
+  >
+    <mat-icon>add</mat-icon>
+    {{ actionLabel }}
+  </button>
+</mat-card-content>

@@ -1,0 +1,184 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-icon mat-card-avatar aria-hidden="true">receipt_long</mat-icon>
+    <mat-card-title>Buscar facturas</mat-card-title>
+    <mat-card-subtitle>Consulta por cliente o número</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="filters">
+      <div class="mode">
+        <label class="label">Modo de búsqueda</label>
+        <mat-radio-group 
+          class="radio-group" 
+          [ngModel]="mode()" 
+          (ngModelChange)="mode.set($event); resetSearch()"
+        >
+          <mat-radio-button value="customer">Por cliente</mat-radio-button>
+          <mat-radio-button value="number">Por número</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="field" *ngIf="mode()==='customer'">
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Cliente</mat-label>
+          <mat-select 
+            [ngModel]="selectedCustomerId()" 
+            (ngModelChange)="selectedCustomerId.set($event); resetSearch()"
+          >
+            <mat-option [value]="null">— Seleccione —</mat-option>
+            <mat-option *ngFor="let c of customers()" [value]="c.id">{{ c.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="field" *ngIf="mode()==='number'">
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Número de factura</mat-label>
+          <input 
+            matInput 
+            type="number" 
+            [ngModel]="number()" 
+            (ngModelChange)="number.set($event)"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-flat-button color="primary" (click)="search()">
+      <mat-icon>search</mat-icon>
+      Buscar
+    </button>
+  </mat-card-actions>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content *ngIf="mode()==='customer' && list().length" class="table-wrapper">
+    <div class="table-toolbar">
+      <mat-form-field appearance="outline" class="filter">
+        <mat-label>Filtrar</mat-label>
+        <input 
+          matInput 
+          (keyup)="applyFilter($event)" 
+          placeholder="numero, fecha" 
+        />
+        <button *ngIf="dataSource.filter" matSuffix mat-icon-button (click)="clearFilter()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="custom-table">
+       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 mat-table">
+        <!-- Número -->
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Número</th>
+          <td mat-cell *matCellDef="let r">{{ r.number }}</td>
+        </ng-container>
+
+        <!-- Cliente -->
+        <ng-container matColumnDef="customer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cliente</th>
+          <td mat-cell *matCellDef="let r">{{ r.customer }}</td>
+        </ng-container>
+
+        <!-- Subtotal -->
+        <ng-container matColumnDef="subtotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="right">Subtotal</th>
+          <td mat-cell *matCellDef="let r" class="right">
+            {{ r.subtotal | currency:'COP':'symbol-narrow':'1.0-0' }}
+          </td>
+        </ng-container>
+
+        <!-- IVA -->
+        <ng-container matColumnDef="tax">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="right">IVA</th>
+          <td mat-cell *matCellDef="let r" class="right">
+            {{ r.tax | currency:'COP':'symbol-narrow':'1.0-0' }}
+          </td>
+        </ng-container>
+
+        <!-- Total -->
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="right">Total</th>
+          <td mat-cell *matCellDef="let r" class="right strong">
+            {{ r.total | currency:'COP':'symbol-narrow':'1.0-0' }}
+          </td>
+        </ng-container>
+
+        <!-- Fecha -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+          <td mat-cell *matCellDef="let r">{{ r.createdAt | date:'short' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackRow"></tr>
+      </table>
+
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20,50]" showFirstLastButtons/>
+    </div>
+   
+  </mat-card-content>
+
+  <mat-card-content *ngIf="mode()==='number' && header()" class="table-wrapper">
+    <h3 class="section-title">Factura #{{ header().number }}</h3>
+    <table class="table mb8">
+      <thead>
+        <tr>
+          <th>Número</th><th>Cliente</th>
+          <th class="right">Subtotal</th><th class="right">IVA</th>
+          <th class="right">Total</th><th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ header()?.number }}</td>
+          <td>{{ header()?.customer }}</td>
+          <td class="right">
+            {{ header()?.subtotal | currency:'COP':'symbol-narrow':'1.0-0' }}
+          </td>
+          <td class="right">
+            {{ header()?.tax      | currency:'COP':'symbol-narrow':'1.0-0' }}
+          </td>
+          <td class="right strong">
+            {{ header()?.total | currency:'COP':'symbol-narrow':'1.0-0' }}
+          </td>
+          <td>{{ header()?.createdAt | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="section-title">Detalle</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th class="right">Cant</th>
+          <th class="right">Unit</th>
+          <th class="right">Total</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of detail()">
+          <td>{{ d.name }}</td>
+          <td class="right">{{ d.quantity }}</td>
+          <td class="right">{{ d.unitPrice | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+          <td class="right strong">{{ d.lineTotal | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+
+  <app-empty-state
+    *ngIf="hasSearched() && (
+      (mode()==='customer' && !list().length) ||
+      (mode()==='number'   && !header())
+    )"
+    icon="search_off"
+    title="Sin resultados"
+    [subtitle]="messsageError()"
+    color="accent"
+  />
+</mat-card>

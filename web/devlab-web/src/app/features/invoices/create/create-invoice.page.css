@@ -1,0 +1,135 @@
+.card {
+  margin: 16px auto;
+  max-width: 1200px;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+
+mat-card-header { 
+  padding-bottom: 4px;
+}
+
+mat-card-title  { 
+  font-weight: 700; 
+  letter-spacing: .2px; 
+}
+
+mat-card-subtitle { 
+  color: #64748b; 
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+.full { 
+  grid-column: span 6; 
+}
+
+@media (max-width: 900px) {
+  .full { 
+    grid-column: span 12; 
+  } 
+}
+
+.actions { 
+  padding: 8px 16px 12px; 
+  display: flex; 
+  gap: 8px; 
+}
+
+.table-wrapper { 
+  margin-top: 8px;
+}
+
+.mat-table { 
+  width: 100%; 
+  border-radius: 12px; 
+  overflow: hidden;
+}
+
+.form-table .mat-mdc-header-row { 
+  background: #f8fafc; 
+}
+
+.form-table .mat-mdc-row:nth-child(even) { 
+  background: #fafbff; 
+}
+
+.form-table .mat-mdc-row:hover { 
+  background: #f5f8ff; 
+}
+
+.field-in-table { 
+  width: 100%; 
+  margin: 0;
+}
+
+.field-in-table.narrow { 
+  width: 140px; 
+}
+
+.right { 
+  text-align: right; 
+}
+
+.center { 
+  text-align: center; 
+}
+
+.strong { 
+  font-weight: 700; 
+}
+
+.prod-img {
+  width: 40px; 
+  height: 40px; 
+  object-fit: cover;
+  border-radius: 6px; 
+  border: 1px solid #e5e7eb;
+}
+
+.summary {
+  margin-top: 8px;
+  display: flex; 
+  gap: 12px; 
+  justify-content: flex-end; 
+  flex-wrap: wrap;
+}
+.pill {
+  background: #f8fafc; 
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px; 
+  border-radius: 999px; 
+  color: #0f172a;
+}
+
+.pill.highlight { 
+  background: #eef6ff; 
+  border-color: #cfe3ff; 
+}
+
+.save { 
+  padding: 8px 16px 16px; 
+}
+
+.save button mat-icon { 
+  margin-right: 6px; 
+}
+
+.paginator { 
+  padding-top: 8px; 
+}
+
+.table-toolbar { 
+  display: flex; 
+  justify-content: flex-end; 
+  margin-bottom: 8px; 
+}
+
+.filter { 
+  width: 320px; 
+  min-width: 240px; 
+}

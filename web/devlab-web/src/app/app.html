@@ -1,0 +1,33 @@
+<mat-toolbar class="topbar" role="navigation">
+  <div class="brand">
+    <mat-icon aria-hidden="true">receipt_long</mat-icon>
+    <span class="brand-text">DevLab Facturación</span>
+  </div>
+
+  <span style="flex:1 1 auto"></span>
+
+  <nav class="nav">
+    <a
+      mat-button
+      [routerLink]="'/create'"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon aria-hidden="true">add_circle</mat-icon>
+      <span>Crear</span>
+    </a>
+
+    <a
+      mat-button
+      [routerLink]="'/search'"
+      routerLinkActive="active"
+    >
+      <mat-icon aria-hidden="true">search</mat-icon>
+      <span>Buscar</span>
+    </a>
+  </nav>
+</mat-toolbar>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
